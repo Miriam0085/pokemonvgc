@@ -18,7 +18,7 @@ You can install the development version of pokemonvgc from GitHub with:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("your-github-username/pokemonvgc")
+remotes::install_github("Miriam0085/pokemonvgc")
 ```
 
 ## Example
