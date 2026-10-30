@@ -16,5 +16,5 @@ Suggests:
     knitr,
     quarto
 VignetteBuilder: quarto
-URL: https://github.com/Miriam0085/pokemonvgc
+URL: https://github.com/Miriam0085/pokemonvgc, https://miriam0085.github.io/pokemonvgc/
 BugReports: https://github.com/Miriam0085/pokemonvgc/issues
