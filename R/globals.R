@@ -1,0 +1,1 @@
+utils::globalVariables(c("player_id", "player_name", "date", "events"))

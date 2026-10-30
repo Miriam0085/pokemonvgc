@@ -1,0 +1,83 @@
+---
+title: "rescue-an-elo-plot"
+vignette: >
+  %\VignetteIndexEntry{rescue-an-elo-plot}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
+---
+
+## Goal
+
+This guide shows how to turn the Elo rating histories in pokemonvgc into
+a clear plot that highlights recent World Champions against the rest of
+the field.
+
+
+```{r}
+#| label: setup
+#| message: false
+library(pokemonvgc)
+library(dplyr)
+library(ggplot2)
+```
+
+## Step 1: Look at the data
+
+`pokemon_elo` contains one row per player per rated event.
+
+```{r}
+pokemon_elo
+```
+
+## Step 2: Mark the recent champions
+
+`recent_champions` is a lookup table, so we use it to flag champions
+rather than hard-coding their names.
+
+```{r}
+elo_flagged <- pokemon_elo |>
+  mutate(champion = player_id %in% recent_champions$player_id)
+```
+
+## Step 3: Plot champions against the field
+
+Grey lines show the field for context; coloured lines draw attention to
+the champions.
+
+```{r}
+#| fig-width: 7
+#| fig-height: 4
+ggplot(elo_flagged, aes(date, rating, group = player_id)) +
+  geom_line(
+    data = filter(elo_flagged, !champion),
+    colour = "grey80"
+  ) +
+  geom_line(
+    data = filter(elo_flagged, champion),
+    aes(colour = player_name),
+    linewidth = 1
+  ) +
+  labs(
+    x = NULL,
+    y = "Elo rating",
+    colour = "World Champion",
+    title = "Recent World Champions against the field"
+  ) +
+  theme_minimal()
+```
+
+## Step 4: Who is on top now?
+
+`recent_players()` keeps each established player's latest rating.
+
+```{r}
+recent_players(pokemon_elo) |>
+  slice_max(rating, n = 5)
+```
+
+The 2026 champion does not appear in the plot because the rating
+snapshot has no history for them. See `?recent_champions`.
