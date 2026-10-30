@@ -1,0 +1,9 @@
+pandoc: 3.8.3
+pkgdown: 2.2.1
+pkgdown_sha: ~
+articles:
+  rescue-an-elo-plot: rescue-an-elo-plot.html
+last_built: 2026-10-30T03:19Z
+urls:
+  reference: https://miriam0085.github.io/pokemonvgc/reference
+  article: https://miriam0085.github.io/pokemonvgc/articles
